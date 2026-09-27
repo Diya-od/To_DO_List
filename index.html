@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskKeeper — Simple Task Manager</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ===== Navigation Bar ===== -->
+  <nav class="navbar">
+    <div class="nav-brand">Task<span>Keeper</span></div>
+
+    <!-- Hamburger toggle for mobile -->
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#add">Add Task</a></li>
+      <li><a href="#tasks">My Tasks</a></li>
+
+      <!-- Filter dropdown -->
+      <li class="dropdown">
+        <button class="dropdown-btn" id="dropdownBtn">
+          Filter <span class="arrow">▾</span>
+        </button>
+        <ul class="dropdown-menu" id="dropdownMenu">
+          <li><button class="filter-option" data-filter="all">All Tasks</button></li>
+          <li><button class="filter-option" data-filter="active">Active</button></li>
+          <li><button class="filter-option" data-filter="completed">Completed</button></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ===== Hero / Intro ===== -->
+  <header class="hero">
+    <h1>Stay on top of your day</h1>
+    <p>A simple task manager that saves everything right in your browser. No sign-up, no accounts, your tasks stay with you.</p>
+  </header>
+
+  <!-- ===== Stats (the "meaning after use") ===== -->
+  <section class="stats" id="stats">
+    <div class="stat-card">
+      <span class="stat-number" id="statTotal">0</span>
+      <span class="stat-label">Total</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" id="statActive">0</span>
+      <span class="stat-label">Active</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" id="statDone">0</span>
+      <span class="stat-label">Completed</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" id="statPercent">0%</span>
+      <span class="stat-label">Progress</span>
+    </div>
+  </section>
+
+  <!-- ===== Add Task Form ===== -->
+  <section class="add-task" id="add">
+    <h2>Add a Task</h2>
+    <form id="taskForm" novalidate>
+      <div class="form-group">
+        <label for="title">Task</label>
+        <input type="text" id="title" name="title" placeholder="e.g. Finish the report" />
+        <small class="error-msg" id="titleError"></small>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="priority">Priority</label>
+          <select id="priority" name="priority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="due">Due date <span class="optional">(optional)</span></label>
+          <input type="date" id="due" name="due" />
+          <small class="error-msg" id="dueError"></small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="note">Note <span class="optional">(optional)</span></label>
+        <textarea id="note" name="note" rows="2" placeholder="Any extra detail..."></textarea>
+        <small class="error-msg" id="noteError"></small>
+      </div>
+
+      <button type="submit" class="btn primary">Add Task</button>
+      <p class="form-feedback" id="formFeedback"></p>
+    </form>
+  </section>
+
+  <!-- ===== Task List ===== -->
+  <section class="task-list-section" id="tasks">
+    <div class="list-header">
+      <h2>My Tasks</h2>
+      <span class="current-filter" id="currentFilter">Showing: All</span>
+    </div>
+
+    <ul class="task-list" id="taskList"></ul>
+
+    <!-- Shown when there are no tasks to display -->
+    <p class="empty-state" id="emptyState">No tasks yet. Add your first one above!</p>
+  </section>
+
+  <!-- ===== Edit Modal ===== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      <h3>Edit Task</h3>
+
+      <div class="form-group">
+        <label for="editTitle">Task</label>
+        <input type="text" id="editTitle" />
+        <small class="error-msg" id="editTitleError"></small>
+      </div>
+
+      <div class="form-group">
+        <label for="editPriority">Priority</label>
+        <select id="editPriority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="editDue">Due date <span class="optional">(optional)</span></label>
+        <input type="date" id="editDue" />
+        <small class="error-msg" id="editDueError"></small>
+      </div>
+
+      <div class="form-group">
+        <label for="editNote">Note</label>
+        <textarea id="editNote" rows="2"></textarea>
+      </div>
+
+      <button class="btn primary" id="saveEditBtn">Save Changes</button>
+    </div>
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <p>&copy; 2026 TaskKeeper. Your tasks are saved privately in your browser.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
